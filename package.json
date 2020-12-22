@@ -15,7 +15,7 @@
     "animate.css": "^4.1.1",
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bitcoinjs-lib": "^3.3.2",
     "bitcore-lib-cash": "^8.13.2",
     "body-parser": "^1.18.2",
