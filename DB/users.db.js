@@ -279,7 +279,7 @@ var users = {
         arr_players: docs,
         isCurPageLast: isCurPageLast
       }
-
+    })
 
   },
 

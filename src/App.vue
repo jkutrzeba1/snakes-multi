@@ -17,7 +17,6 @@
           <img src="img/instagram.svg" class="header-button"/>
         </a>
       </div>
-
       <div class="main-box" v-if="!loggedAs">
 
         <form-switcher v-on:successfull-login="(username, balance)=>{ this.loggedAs=username, this.balance=balance}"></form-switcher>
@@ -203,6 +202,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
   }
 
   .header > a {
@@ -210,8 +210,8 @@
   }
 
   .header-button {
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     display: block;
     margin: 0 auto;
     text-align: center;

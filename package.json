@@ -14,7 +14,7 @@
     "animate-group": "^1.0.5",
     "animate.css": "^4.1.1",
     "animejs": "^2.2.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "bitcoinjs-lib": "^3.3.2",
     "bitcore-lib-cash": "^8.13.2",
@@ -48,6 +48,7 @@
     "vue-directive-tooltip": "1.4.5",
     "vue-dropd": "^1.1.4-alpha.0",
     "vue-loader": "^16.1.2",
+    "vue-router": "^3.5.1",
     "vue-select": "^2.4.0"
   },
   "devDependencies": {
