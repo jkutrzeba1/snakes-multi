@@ -64,7 +64,6 @@
   var GameReplay = require("./GameReplay.vue").default;
   var WithdrawalPanel = require("./WithdrawalPanel.vue").default;
   var ReferrerPanel = require("./ReferrerPanel.vue").default;
-  var SwitcherRankingStats = require("./SwitcherRankingStats.vue").default;
 
   const animeMixin = require('./mixins/anims.js');
 
@@ -188,7 +187,7 @@
       }
     },
     components: {
-      FormSwitcher, UserPanel, Game, GameList, FaucetList, GameReplay, WithdrawalPanel, SwitcherRankingStats
+      FormSwitcher, UserPanel, Game, GameList, FaucetList, GameReplay, WithdrawalPanel
     }
   }
 </script>
