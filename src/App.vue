@@ -21,7 +21,13 @@
 
         <form-switcher v-on:successfull-login="(username, balance)=>{ this.loggedAs=username, this.balance=balance}"></form-switcher>
 
-        <switcher-ranking-stats v-if="!loggedAs && !replayActive"></switcher-ranking-stats>
+        <div class="switcher-box">
+          <router-link class="switcher" to="/ranking">RANKING</router-link>
+          <router-link class="switcher" to="/stats">STATS</router-link>
+        </div>
+        <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
+          <router-view name="tabs"></router-view>
+        </transition>
 
       </div>
 
@@ -60,8 +66,11 @@
   var ReferrerPanel = require("./ReferrerPanel.vue").default;
   var SwitcherRankingStats = require("./SwitcherRankingStats.vue").default;
 
+  const animeMixin = require('./mixins/anims.js');
+
   module.exports = {
     name: 'app',
+    mixins: [animeMixin],
     data: () => ({
       loggedAs: null,
       balance: null,
@@ -105,6 +114,8 @@
       this.prev_panel = this.comp_list[0];
       this.cur_panel = this.comp_list[0];
 
+      console.log(animeMixin);
+
     },
 
     mounted:  function(){
@@ -125,7 +136,6 @@
 
     },
     methods: {
-
 
       gamestart: function(initial_states, first_to_reach){
         this.in_game = true;
@@ -216,6 +226,27 @@
     margin: 0 auto;
     text-align: center;
     margin: 15px 0 0;
+  }
+
+  .switcher {
+    display: inline-block;
+    margin-right: 20px;
+    color: white;
+    font-size: 20px;
+    font-family: 'Titillium Web', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .router-link-active {
+    border-bottom: 2px solid white;
+  }
+
+  .switcher-box {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 20px;
   }
 
 </style>

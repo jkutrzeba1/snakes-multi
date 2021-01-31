@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
+import router from './router.js';
 
 import CheckboxRadio from 'vue-checkbox-radio';
 import anime from 'animejs'
@@ -126,7 +127,6 @@ Vue.prototype.$syncTimePing = function(){
 }
 
 
-
 Vue.prototype.$estabilishSocketConnection = function(){
 
   Vue.prototype.$io = require("socket.io-client")();
@@ -161,9 +161,12 @@ Vue.prototype.$estabilishSocketConnection = function(){
   }
 }
 
+
+
 window.lag = 0;
 
 new Vue({
+  router,
   render: h => h(App),
     mounted: function(){
 
