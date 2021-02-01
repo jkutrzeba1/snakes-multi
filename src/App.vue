@@ -31,8 +31,8 @@
           <router-link class="switcher" to="/ranking">RANKING</router-link>
           <router-link class="switcher" to="/stats">STATS</router-link>
         </div>
-        <transition @enter="fadeIn" @leave="fadeOut" mode="out-in" v-if="!loggedAs && !replayActive">
-          <router-view name="tabs"></router-view>
+        <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
+          <router-view name="tabs" v-if="!loggedAs && !replayActive"></router-view>
         </transition>
 
       </div>
