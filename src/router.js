@@ -3,6 +3,8 @@ import Vue from 'vue';
 
 const Stats = require("./Stats.vue").default;
 const Ranking = require("./Ranking.vue").default;
+const LoginForm = require("./LoginForm.vue").default;
+const RegisterForm = require("./RegisterForm.vue").default;
 
 Vue.use(VueRouter);
 
@@ -13,6 +15,18 @@ const routes = [
       tabs: Ranking
     },
     redirect: "/ranking"
+  },
+  {
+    path: "/login",
+    components: {
+      credentials: LoginForm
+    }
+  },
+  {
+    path: "/register",
+    components: {
+      credentials: RegisterForm
+    }
   },
   {
     path: "/ranking",

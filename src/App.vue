@@ -19,7 +19,13 @@
       </div>
       <div class="main-box" v-if="!loggedAs">
 
-        <form-switcher v-on:successfull-login="(username, balance)=>{ this.loggedAs=username, this.balance=balance}"></form-switcher>
+        <div class="switcher-box">
+          <router-link class="switcher" to="/login">LOGIN</router-link>
+          <router-link class="switcher" to="/register">REGISTER</router-link>
+        </div>
+        <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
+          <router-view name="credentials" v-on:successfull-login="(username, balance)=>{ this.loggedAs=username, this.balance=balance}"></router-view>
+        </transition>
 
         <div class="switcher-box">
           <router-link class="switcher" to="/ranking">RANKING</router-link>
@@ -56,7 +62,6 @@
 
 <script>
 
-  var FormSwitcher = require("./FormSwitcher.vue").default;
   var UserPanel = require("./UserPanel.vue").default;
   var Game = require("./Game.vue").default;
   var GameList = require("./GameList.vue").default;
@@ -187,7 +192,7 @@
       }
     },
     components: {
-      FormSwitcher, UserPanel, Game, GameList, FaucetList, GameReplay, WithdrawalPanel
+      UserPanel, Game, GameList, FaucetList, GameReplay, WithdrawalPanel
     }
   }
 </script>
