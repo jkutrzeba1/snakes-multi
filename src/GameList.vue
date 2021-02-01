@@ -52,8 +52,10 @@
 
 <script>
   const AnimateGroup = require('animate-group').default;
+  const animeMixin = require('./mixins/anims.js');
 
   module.exports = {
+    mixins: [animeMixin],
     components: {
       AnimateGroup
     },
@@ -115,26 +117,6 @@
     props: ["loggedAs"],
 
     methods: {
-
-      fadeIn: function(el, done, duration){
-        this.$anime({
-          targets: el,
-          opacity: [0,1],
-          duration: duration,
-          easing: "linear",
-          complete: done
-        })
-      },
-
-      fadeOut: function(el, done, duration){
-        this.$anime({
-          targets: el,
-          opacity: [1,0],
-          duration: duration,
-          easing: "linear",
-          complete: done
-        })
-      },
 
       gameStart: function(initial_states, first_to_reach, bet){
 

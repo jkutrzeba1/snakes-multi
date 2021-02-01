@@ -7,7 +7,7 @@
         {{tab.text}}
       </a>
     </div>
-    <transition v-on:enter="enterRegLogForm" v-on:leave="leaveRegLogForm" mode="out-in">
+    <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
       <component v-on:successfull-login="(username, balance)=>{ $emit('successfull-login', username, balance) }" v-bind:is="activeTabComp"></component>
     </transition>
   </div>
@@ -17,6 +17,8 @@
 
   var LoginForm = require("./LoginForm.vue").default;
   var RegisterForm = require("./RegisterForm.vue").default;
+
+  const animeMixin = require("./mixins/anims.js");
 
   var tabs = [
     {
@@ -30,6 +32,7 @@
   ]
 
   module.exports = {
+    mixins: [animeMixin],
     data: () => ({
       tabs: tabs,
       activeTabComp: tabs[0].comp
@@ -37,26 +40,6 @@
     components: {
       LoginForm,
       RegisterForm
-    },
-    methods: {
-      enterRegLogForm: function(el, done){
-        this.$anime({
-          targets: el,
-          opacity: [0,1],
-          duration: 200,
-          easing: "linear",
-          complete: done
-        })
-      },
-      leaveRegLogForm: function(el, done){
-        this.$anime({
-          targets: el,
-          opacity: [1,0],
-          duration: 200,
-          easing: "linear",
-          complete: done
-        })
-      }
     }
   }
 

@@ -11,7 +11,7 @@
           <span v-bind:class="{dead: !player.live}" class="player">{{player.playername}}</span>
           <span v-bind:class="{dead: !player.live}" class="points">{{player.points}}</span>
           <span style="width: 30px; display: inline-block">
-            <transition v-on:enter="on_enter" v-on:leave="on_leave">
+            <transition @enter="fadeIn(...arguments, 2000)" @leave="fadeOut(...arguments, 2000)">
               <span style="display: inline-blockl width: 30px;" v-if="!player.live || player.winner">+{{player.round_points}}</span>
             </transition>
           </span>
@@ -28,46 +28,17 @@
 
 <script>
 
-
+  const animeMixin = require('./mixins/anims.js');
 
   module.exports = {
-
+    mixins: [animeMixin],
     props: ["player_table", "first_to_reach", "may_color", "max_players"],
-
     data: ()=>({
-
       cnt_killed: 0,
       round_ended: false,
       game_winner: null
-
     }),
-
     methods: {
-
-      on_enter: function(el, done) {
-
-        this.$anime({
-          targets: el,
-          opacity: [0,1],
-          complete: done,
-          duration: 2000,
-          easing: "linear"
-        })
-
-      },
-
-      on_leave: function(el, done){
-
-        this.$anime({
-          targets: el,
-          opacity: [1,0],
-          complete: done,
-          duration: 2000,
-          easing: "linear"
-        })
-
-      },
-
       endRound: function() {
 
         this.round_ended = true;
