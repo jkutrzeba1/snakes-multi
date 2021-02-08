@@ -20,16 +20,16 @@
       <div class="main-box" v-if="!loggedAs">
 
         <div class="switcher-box">
-          <router-link class="switcher" to="/login">LOGIN</router-link>
-          <router-link class="switcher" to="/register">REGISTER</router-link>
+          <router-link :to="{ name: 'login' }" class="switcher" :class="{'router-link-active': linkActive.login}">LOGIN</router-link>
+          <router-link :to="{ name: 'register' }" class="switcher" :class="{'router-link-active': linkActive.register}">REGISTER</router-link>
         </div>
         <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
           <router-view name="credentials" v-on:successfull-login="(username, balance)=>{ this.loggedAs=username, this.balance=balance}"></router-view>
         </transition>
 
         <div class="switcher-box">
-          <router-link class="switcher" to="/ranking">RANKING</router-link>
-          <router-link class="switcher" to="/stats">STATS</router-link>
+          <router-link :to="{ name: 'ranking' }" class="switcher" :class="{'router-link-active': linkActive.ranking}">RANKING</router-link>
+          <router-link :to="{ name: 'stats' }" class="switcher" :class="{'router-link-active': linkActive.stats}">STATS</router-link>
         </div>
         <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
           <router-view name="tabs" v-if="!loggedAs && !replayActive"></router-view>
@@ -76,6 +76,12 @@
     name: 'app',
     mixins: [animeMixin],
     data: () => ({
+      linkActive: {
+        login: false,
+        register: false,
+        ranking: false,
+        stats: false
+      },
       loggedAs: null,
       balance: null,
       cur_panel: undefined, // Game ; GameList ; FaucetList
@@ -113,12 +119,18 @@
       }
     }),
 
+    watch: {
+      $route: function(newVal){
+        console.log(newVal.matched[0]);
+      }
+    },
+
     created: function(){
+
+      //console.log(this.$router);
 
       this.prev_panel = this.comp_list[0];
       this.cur_panel = this.comp_list[0];
-
-      console.log(animeMixin);
 
     },
 
