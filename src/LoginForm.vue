@@ -27,7 +27,7 @@
 <script>
 
   module.exports = {
-
+    name: "login-form",
     data: () => ({
       username: "",
       password: "",

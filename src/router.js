@@ -14,6 +14,9 @@ const routes = [
     components: {
       credentials: LoginForm,
       tabs: Ranking
+    },
+    meta: {
+      keepViews: []
     }
   },
   {
@@ -23,7 +26,7 @@ const routes = [
       credentials: LoginForm
     },
     meta: {
-      keepAsActiveSibling: true
+      keepViews: []
     }
   },
   {
@@ -33,7 +36,7 @@ const routes = [
       credentials: RegisterForm
     },
     meta: {
-      keepAsActiveSibling: true
+      keepViews: []
     }
   },
   {
@@ -43,7 +46,7 @@ const routes = [
       tabs: Ranking
     },
     meta: {
-      keepAsActiveSibling: true
+      keepViews: []
     }
   },
   {
@@ -53,7 +56,7 @@ const routes = [
       tabs: Stats
     },
     meta: {
-      keepAsActiveSibling: true
+      keepViews: []
     }
   }
 ];
@@ -62,41 +65,44 @@ const Router = new VueRouter({
   routes
 })
 
-Router.beforeEach((to, from, next)=>{
+const defaultActiveRecords = ["login", "ranking"];
+let activeRouteRecords = {};
 
-  let activeRouteRecords = {};
-
-  for(let route of routes){
-    if(route.name){
+for(let route of routes){
+  if(route.name){
+    if(defaultActiveRecords.includes(route.name)){
+      activeRouteRecords[route.name] = true;
+    }
+    else{
       activeRouteRecords[route.name] = false;
     }
   }
+}
+
+Router.activeRouteRecords = activeRouteRecords;
+
+Router.beforeEach((to, from, next)=>{
 
   // first navigation
   if(!from.matched[0]){
-    //activeSiblings = { ...to.matched[0].components }
     return next();
   }
 
-  /*
-    to: Route Object
-    matched[0]: Route Record at depth 0
-  */
-
   for(let viewName in from.matched[0].components){
-    if(!from.matched[0].meta.keepAsActiveSibling){
-      break;
-    }
-    if(!to.matched[0].components[viewName]){
-      to.matched[0].components[viewName] = from.matched[0].components[viewName]
+
+    // if target route has not specified viewName or view is included in keepViews array it can be reassigned
+    const isViewIncluded = to.matched[0].meta.keepViews.includes(viewName);
+    if(!to.matched[0].components[viewName] || isViewIncluded ){
+
+      // assign/reassign component to view
+      to.matched[0].components[viewName] = from.matched[0].components[viewName];
+
+      // set view name in keep views array
+      if(!isViewIncluded){
+        to.matched[0].meta.keepViews.push(viewName);
+      }
     }
   }
-
-  /*
-    Active siblings
-    activeRouteRecords
-     name is name of route
-  */
 
   // iteration over named routes
   for(let route of routes){
@@ -106,6 +112,9 @@ Router.beforeEach((to, from, next)=>{
 
     // iteration over view names
     for(let viewName in route.components){
+      if(route.meta.keepViews.includes(viewName)){
+        continue;
+      }
       if(route.components[viewName] === to.matched[0].components[viewName] ){
         activeRouteRecords[route.name] = true;
       }
@@ -115,6 +124,8 @@ Router.beforeEach((to, from, next)=>{
     }
 
   }
+
+  Router.activeRouteRecords = activeRouteRecords;
 
   next();
 })

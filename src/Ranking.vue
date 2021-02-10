@@ -26,7 +26,7 @@
 <script>
 
   module.exports = {
-
+    name: "ranking",
     data: ()=>({
       rank_arr: [],
       cur_page: 0,

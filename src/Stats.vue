@@ -17,7 +17,7 @@
 <script>
 
   module.exports = {
-
+    name: "stats",
     data: ()=>({
       registered_users: 0,
       matches_played: 0,

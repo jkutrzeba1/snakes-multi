@@ -36,7 +36,7 @@
 <script>
 
   module.exports = {
-
+    name: "register-form",
     data: () => ({
 
       username: {

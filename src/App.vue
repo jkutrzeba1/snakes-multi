@@ -20,19 +20,19 @@
       <div class="main-box" v-if="!loggedAs">
 
         <div class="switcher-box">
-          <router-link :to="{ name: 'login' }" class="switcher" :class="{'router-link-active': linkActive.login}">LOGIN</router-link>
-          <router-link :to="{ name: 'register' }" class="switcher" :class="{'router-link-active': linkActive.register}">REGISTER</router-link>
+          <router-link :to="{ name: 'login' }" class="switcher" :class="{'router-link-active': $router.activeRouteRecords.login}">LOGIN</router-link>
+          <router-link :to="{ name: 'register' }" class="switcher" :class="{'router-link-active': $router.activeRouteRecords.register}">REGISTER</router-link>
         </div>
         <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
           <router-view name="credentials" v-on:successfull-login="(username, balance)=>{ this.loggedAs=username, this.balance=balance}"></router-view>
         </transition>
 
         <div class="switcher-box">
-          <router-link :to="{ name: 'ranking' }" class="switcher" :class="{'router-link-active': linkActive.ranking}">RANKING</router-link>
-          <router-link :to="{ name: 'stats' }" class="switcher" :class="{'router-link-active': linkActive.stats}">STATS</router-link>
+          <router-link :to="{ name: 'ranking' }" class="switcher" :class="{'router-link-active': $router.activeRouteRecords.ranking}">RANKING</router-link>
+          <router-link :to="{ name: 'stats' }" class="switcher" :class="{'router-link-active': $router.activeRouteRecords.stats}">STATS</router-link>
         </div>
         <transition @enter="fadeIn" @leave="fadeOut" mode="out-in">
-          <router-view name="tabs" v-if="!loggedAs && !replayActive"></router-view>
+            <router-view name="tabs" v-if="!loggedAs && !replayActive"></router-view>
         </transition>
 
       </div>
@@ -76,12 +76,6 @@
     name: 'app',
     mixins: [animeMixin],
     data: () => ({
-      linkActive: {
-        login: false,
-        register: false,
-        ranking: false,
-        stats: false
-      },
       loggedAs: null,
       balance: null,
       cur_panel: undefined, // Game ; GameList ; FaucetList
@@ -118,12 +112,6 @@
         value: "game"
       }
     }),
-
-    watch: {
-      $route: function(newVal){
-        console.log(newVal.matched[0]);
-      }
-    },
 
     created: function(){
 
