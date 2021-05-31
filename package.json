@@ -38,7 +38,7 @@
     "random-js": "^1.0.8",
     "random-key": "^0.3.2",
     "setimmediate": "^1.0.5",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "timesync": "^1.0.4",
     "triangle-circle-collision": "^1.0.4",
     "velocity-animate": "^2.0.5",
