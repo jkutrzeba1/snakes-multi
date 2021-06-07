@@ -31,7 +31,7 @@ var gamereplays = require("./API/gamereplays.api.js");
 var db = require("./db.js");
 db.promise.then( function(){
 	http.listen(3006, function(){
-		console.log("App listen on 3006 port");
+		console.log("App listen");
 	});
 })
 
