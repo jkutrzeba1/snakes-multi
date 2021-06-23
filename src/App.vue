@@ -65,10 +65,7 @@
   var UserPanel = require("./UserPanel.vue").default;
   var Game = require("./Game.vue").default;
   var GameList = require("./GameList.vue").default;
-  var FaucetList = require("./FaucetList.vue").default;
   var GameReplay = require("./GameReplay.vue").default;
-  var WithdrawalPanel = require("./WithdrawalPanel.vue").default;
-  var ReferrerPanel = require("./ReferrerPanel.vue").default;
 
   const animeMixin = require('./mixins/anims.js');
 
@@ -89,21 +86,6 @@
           comp: GameList,
           label: "GAME LIST",
           value: "game_list"
-        },
-        {
-          comp: FaucetList,
-          label: "TOP-UP BALANCE",
-          value: "topup"
-        },
-        {
-          comp: WithdrawalPanel,
-          label: "WITHDRAWAL",
-          value: "withdrawal"
-        },
-        {
-          comp: ReferrerPanel,
-          label: "REFERRERS",
-          value: "referrers"
         }
       ],
       game_comp: {
@@ -192,7 +174,7 @@
       }
     },
     components: {
-      UserPanel, Game, GameList, FaucetList, GameReplay, WithdrawalPanel
+      UserPanel, Game, GameList, GameReplay
     }
   }
 </script>
