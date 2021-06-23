@@ -20,13 +20,12 @@ var io = null;
 var games = require("./games.js");
 var sample_game = null;
 
-function Game( player_creator, name, bet, max_players, replay_mode = false){
+function Game( player_creator, name, max_players, replay_mode = false){
 
   this.max_players = max_players;
   this.cnt_players = 1;
   this.players = [];
   this.name = name;
-  this.bet = bet;
   this.round_points = 0;
 
   this.game_replay = null; //GameReplay
@@ -769,27 +768,13 @@ module.exports = function( io_, socket ){
 
   })
 
-  socket.on("newgame", (gamename, bet, max_players, fn)=>{
+  socket.on("newgame", (gamename, max_players, fn)=>{
 
     var playername = socket.playername;
 
     //check balance
 
-    Users.checkBalance(socket.playername, bet)
-    .then((reduction_obj)=>{
-
-      console.log("check balance")
-      console.log(reduction_obj);
-
-      if(!reduction_obj || reduction_obj.success == false){
-        fn({
-          for: "bet",
-          err_msg: "Bet exceeded current balance"
-        })
-        throw new Error("balance");
-      }
-
-    })
+    Promise.resolve()
     .then(()=>{
 
       if(socket.currentRoom){
@@ -821,22 +806,6 @@ module.exports = function( io_, socket ){
           for: "gamename",
           err_msg: "Game with given name already exist"
         })
-        return;
-      }
-
-      if(/[^0-9]/.test(bet)){
-        fn({
-          for: "bet",
-          err_msg: "Bet must be a number"
-        })
-        return;
-      }
-
-      if(bet<1000){
-        fn({
-          for: "bet",
-          err_msg: "Minimum bet value is 1000 Satoshi"
-        });
         return;
       }
 
@@ -873,7 +842,7 @@ module.exports = function( io_, socket ){
         live: true
       };
 
-      var ng = new Game( p, gamename, bet, max_players);
+      var ng = new Game( p, gamename, max_players);
       games.push(ng);
 
 

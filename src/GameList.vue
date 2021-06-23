@@ -10,7 +10,6 @@
 
         <div v-else class="game-list-menu" key="m_a2">
           <span v-tooltip.left.notrigger="{ content: new_game_form.gamename.err_msg, class: 'tooltip-custom', visible: new_game_form.gamename.err}"><input class="input" type="text" placeholder="Game name" v-model="new_game_form.gamename.val" /></span>
-          <span v-tooltip.left.notrigger="{ content: new_game_form.bet.err_msg, class: 'tooltip-custom', visible: new_game_form.bet.err }"><input min="1000" class="input" type="number" placeholder="Bet (Satoshi)" v-model="new_game_form.bet.val"/></span>
           <span v-tooltip.left.notrigger="{ content: new_game_form.max_players.err_msg, class: 'tooltip-custom', visible: new_game_form.max_players.err }"><input min="2" max="6" class="input" type="number" placeholder="Max Players" v-model="new_game_form.max_players.val"/></span>
 
           <button class="btn-small btn" v-on:click="roomCreation" v-tooltip.left.notrigger="{ content: new_game_form.confirm.err_msg, class:'tooltip-custom', visible: new_game_form.confirm.err}" style="margin-right: 20px; background-color: #00afec;"><b>CONFIRM</b></button>
@@ -24,7 +23,6 @@
           <img v-for="n in game.max_players-game.cnt_players" v-bind:title="n" src="img/circle-24-off.svg" :key="n+'b'" />
           <img v-for="n in 6-game.max_players" v-bind:title="n" src="img/circle-24-off.svg" style="visibility: hidden" :key="n+'c'" />
           <span class="game-name">{{game.name}}</span>
-          <span class="bet">{{game.bet}} Satoshi</span>
 
           <transition @enter="fadeIn(...arguments, 200)" @leave="fadeOut(...arguments, 200)">
             <button v-if="isJoinButtonActive(game)" class="btn padding-2 green" v-on:click="joinToGame( game.name )" style="margin-left: 50px;" key="join-btn">
@@ -77,12 +75,6 @@
           err_msg: null,
           err_timeout: null
         },
-        bet: {
-          val: 1000,
-          err: false,
-          err_msg: null,
-          err_timeout: null
-        },
         max_players: {
           val: 6,
           err: false,
@@ -118,9 +110,8 @@
 
     methods: {
 
-      gameStart: function(initial_states, first_to_reach, bet){
+      gameStart: function(initial_states, first_to_reach){
 
-        this.$bus.$emit("balance_update", -bet);
         this.currentRoom = "";
         this.$emit("gamestart", initial_states, first_to_reach);
 
@@ -236,8 +227,6 @@
         this.new_game_form.confirm.err_msg = "";
         this.new_game_form.gamename.err = false;
         this.new_game_form.gamename.err_msg = "";
-        this.new_game_form.bet.err = false;
-        this.new_game_form.bet.err_msg = "";
         this.new_game_form.max_players.err = false;
         this.new_game_form.max_players.err_msg = "";
 
@@ -257,7 +246,7 @@
         var room_name = this.new_game_form.gamename.val;
         this.currentRoom = room_name;
 
-        this.$io.emit("newgame", this.new_game_form.gamename.val, this.new_game_form.bet.val, this.new_game_form.max_players.val,
+        this.$io.emit("newgame", this.new_game_form.gamename.val, this.new_game_form.max_players.val,
           (res)=>{
 
             if(res.for == "confirm"){
@@ -282,19 +271,6 @@
 
               this.new_game_form.gamename.err_timeout = setTimeout(()=>{
                 this.new_game_form.gamename.err = false;
-              }, 3000)
-
-            }
-
-            if(res.for == "bet"){
-
-              clearTimeout(this.new_game_form.bet.err_timeout);
-
-              this.new_game_form.bet.err_msg = res.err_msg;
-              this.new_game_form.bet.err = true;
-
-              this.new_game_form.bet.err_timeout = setTimeout(()=>{
-                this.new_game_form.bet.err = false;
               }, 3000)
 
             }
@@ -376,11 +352,6 @@
 
 .current_room {
   background-color: #31659a;
-}
-
-.bet {
-  color: #efdf24;
-  font-family: 'Titillium Web', sans-serif;
 }
 
 .game-name {
