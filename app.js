@@ -24,7 +24,6 @@ var http = require("http").Server(app);
 
 var login = require("./API/login.api.js");
 var register = require("./API/register.api.js");
-var faucet = require("./API/faucet.api.js");
 var referrer = require("./API/referrer.api.js");
 var gamereplays = require("./API/gamereplays.api.js");
 
@@ -66,7 +65,6 @@ const ApiRouter = express.Router();
 
 ApiRouter.use("/login", login);
 ApiRouter.use("/register", register);
-ApiRouter.use("/faucet", faucet);
 ApiRouter.use("/referrer", referrer);
 ApiRouter.use("/gamereplays", gamereplays);
 
