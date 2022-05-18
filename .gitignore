@@ -26,3 +26,5 @@ pnpm-debug.log*
 
 public/build.js
 
+env.priv.json
+package-lock.json

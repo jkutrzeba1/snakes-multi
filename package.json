@@ -8,7 +8,8 @@
     "server": "nodemon --watch API --watch DB --watch index.js --watch socket.js --watch lobby.js --watch src/game/ --watch src/game/PlayerSrv.js --watch /src/game app.js NO_CYPRESS",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "install-env": "cross-env-file -p env.json npm install"
   },
   "dependencies": {
     "animate-group": "^1.0.5",
@@ -26,7 +27,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "geo-from-ip": "^2.0.0",
+    "geo-from-ip": "^2.1.0",
     "install": "^0.12.1",
     "line-circle-collision": "^1.1.3",
     "mongodb": "^3.0.5",
@@ -56,6 +57,8 @@
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
+    "cross-env-file": "^1.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "nodemon": "^1.19.4",
