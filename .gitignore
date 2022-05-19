@@ -7,7 +7,7 @@ node_modules
 .env.local
 .env.*.local
 .env
-mongouri.json
+config.json
 
 # Log files
 npm-debug.log*

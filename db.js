@@ -1,35 +1,23 @@
 
 const MongoClient = require('mongodb').MongoClient;
-const url = require("./mongouri.json").mongouri;
-const dbName = require("./mongouri.json").dbName;
+let { mongohost, mongousername, mongopassword, dbName } = require("./config.json");
 
-function PromisePending(){
-  this.resolve = null;
-  this.reject = null;
-  this.promise = null;
-
-  this.promise = new Promise((resolve,reject)=>{
-    this.resolve = resolve;
-    this.reject = reject;
-  })
-
-}
+mongousername = encodeURIComponent(mongousername);
+mongopassword = encodeURIComponent(mongopassword);
 
 const db = {
   promise: null,
-  DB: null,
   dbName: dbName,
-  clientInstancePromise: new PromisePending()
+  clientInstancePromise: null
 }
 
-db.promise = MongoClient.connect(url)
-.then( function(clientInstance){
+const mongouri = `mongodb://${mongousername}:${mongopassword}@${mongohost}/${dbName}`;
 
-  db.DB = clientInstance.db(dbName);
-  db.clientInstancePromise.resolve(clientInstance)
+db.clientInstancePromise = MongoClient.connect(mongouri);
 
-  return db.DB;
+db.promise = db.clientInstancePromise.then( function(clientInstance){
 
+  return clientInstance.db(dbName);
 })
 
 module.exports = db;
