@@ -25,7 +25,7 @@
     "cookie-parser": "^1.4.5",
     "core-js": "^3.8.1",
     "dotenv": "^8.2.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
     "geo-from-ip": "^2.1.0",
     "install": "^0.12.1",
